@@ -5,12 +5,9 @@ from sklearn.preprocessing import StandardScaler
 # state column names 
 col_names = ['age', 'workclass', 'fnlwgt', 'education', 'education_num', 'marital_status', 'occupation', 'relationship', 'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week', 'native_country', 'the label']
 test_raw_nan = pd.read_csv('census-income.test.csv', names = col_names)
+# print(test_raw_nan)
 test_raw_nan.replace(' ?', np.nan, inplace = True)
 # print(test_raw_nan)
-
-#drop missing values 
-# test_raw = test_raw_nan.dropna()
-# print(test_raw)
 
 # CONVERTING CATEGORICAL VARIABLES TO DUMMY VARIABLES 
 test_raw_nan_workclass = pd.get_dummies(test_raw_nan['workclass'])
@@ -35,10 +32,10 @@ test_raw_nan_concat = pd.concat(
     test_raw_nan_native_country,
     test_raw_nan_the_label],
     axis=1)
-print (test_raw_nan_concat.head())
+# print (test_raw_nan_concat)
 
-# not sure if i should remove ' Male' and ' ' >=50k' dummy variables 
 # dropping categorical columns  
-test_raw_nan_concat.drop(['workclass', 'education', 'marital_status', 'occupation', 'relationship', 'race', 'sex', 'the label', 'native_country'], inplace=True, axis=1)
-print (test_raw_nan_concat.head())
-print(test_raw_nan_concat.columns.values)
+test_raw_nan_concat.drop(['workclass', 'education', 'marital_status', 'occupation', 'relationship', 'race', 'sex', ' Male', 'the label', 'native_country', ' <=50K.'], inplace=True, axis=1)
+test_raw_nan_concat.rename(columns = {' Female':'sex', ' >50K.':'the label'}, inplace = True)
+print (test_raw_nan_concat)
+# print(test_raw_nan_concat.columns.values)
