@@ -4,14 +4,14 @@ import pandas as pd
 from time import time
 from IPython.display import display 
 
-# Visualization code visuals.py
+# Visualization code 
 import visuals as vs
 
-# Pretty display for notebooks
+# Display
 %matplotlib inline
 
-# Load the Census dataset
+# Load Census dataset
 data = pd.read_csv("train_mode_file.csv")
 
-# Success - Display the first record
+# Display first record
 display(data.head(n=1))
