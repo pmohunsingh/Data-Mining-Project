@@ -2,40 +2,45 @@ import pandas as pd
 import numpy as np 
 from sklearn.preprocessing import StandardScaler
 
-# state column names 
+# assigning the columns names 
 col_names = ['age', 'workclass', 'fnlwgt', 'education', 'education_num', 'marital_status', 'occupation', 'relationship', 'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week', 'native_country', 'the label']
 test_raw_nan = pd.read_csv('census-income.test.csv', names = col_names)
 # print(test_raw_nan)
 test_raw_nan.replace(' ?', np.nan, inplace = True)
 # print(test_raw_nan)
 
-# CONVERTING CATEGORICAL VARIABLES TO DUMMY VARIABLES 
-test_raw_nan_workclass = pd.get_dummies(test_raw_nan['workclass'])
-test_raw_nan_education = pd.get_dummies(test_raw_nan['education'])
-test_raw_nan_marital_status = pd.get_dummies(test_raw_nan['marital_status'])
-test_raw_nan_occupation = pd.get_dummies(test_raw_nan['occupation'])
-test_raw_nan_relationship = pd.get_dummies(test_raw_nan['relationship'])
-test_raw_nan_race = pd.get_dummies(test_raw_nan['race'])
-test_raw_nan_sex = pd.get_dummies(test_raw_nan['sex'])
-test_raw_nan_native_country = pd.get_dummies(test_raw_nan['native_country'])
-test_raw_nan_the_label = pd.get_dummies(test_raw_nan['the label'])
-# concatenating 
-test_raw_nan_concat = pd.concat(
-    [test_raw_nan, 
-    test_raw_nan_workclass, 
-    test_raw_nan_education, 
-    test_raw_nan_marital_status, 
-    test_raw_nan_occupation,
-    test_raw_nan_relationship,
-    test_raw_nan_race, 
-    test_raw_nan_sex,  
-    test_raw_nan_native_country,
-    test_raw_nan_the_label],
-    axis=1)
-# print (test_raw_nan_concat)
+# creating the dummy variables
+# dropping the first dummy variable of each categorical feaure 
+workclass = pd.get_dummies(test_raw_nan['workclass'], drop_first=True)
+education = pd.get_dummies(test_raw_nan['education'], drop_first=True)
+marital_status = pd.get_dummies(test_raw_nan['marital_status'], drop_first=True)
+occupation = pd.get_dummies(test_raw_nan['occupation'], drop_first=True)
+relationship = pd.get_dummies(test_raw_nan['relationship'], drop_first=True)
+race = pd.get_dummies(test_raw_nan['race'], drop_first=True)
+sex = pd.get_dummies(test_raw_nan['sex'], drop_first=True)
+native_country = pd.get_dummies(test_raw_nan['native_country']) # one country is already missing, no need to drop first
+the_label = pd.get_dummies(test_raw_nan['the label'], drop_first=True)
 
-# dropping categorical columns  
-test_raw_nan_concat.drop(['workclass', 'education', 'marital_status', 'occupation', 'relationship', 'race', 'sex', ' Male', 'the label', 'native_country', ' <=50K.'], inplace=True, axis=1)
-test_raw_nan_concat.rename(columns = {' Female':'sex', ' >50K.':'the label'}, inplace = True)
-print (test_raw_nan_concat)
-# print(test_raw_nan_concat.columns.values)
+# concatenating 
+test_concat = pd.concat(
+    [test_raw_nan, 
+    workclass, 
+    education, 
+    marital_status, 
+    occupation,
+    relationship,
+    race, 
+    sex,  
+    native_country,
+    the_label],
+    axis=1)
+# print (test_concat)
+
+# dropping the categorical variables as well as education_num
+test_concat.drop(['workclass', 'education', 'marital_status', 'education_num', 'occupation', 'relationship', 'race', 'sex', 'the label', 'native_country'], inplace=True, axis=1)
+# renaming the Male dummy variable as 'sex' and the >50k dummy variable as 'the label'
+test_concat.rename(columns = {' Male':'sex', ' >50K.':'the label'}, inplace = True)
+print (test_concat)
+# print(test_concat.columns.values)
+
+test_concat.to_csv('train_notdroped.csv')
