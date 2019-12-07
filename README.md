@@ -1,9 +1,11 @@
-# Data-Mining-Project
+# Data Mining Project
 
-Run the files on jupyter notebook
+## Running the Files
+The files should be run on jupyter notebook. 
+The DropNa folder contains preproccessing code that converts all categorical variables into dummy variables, including the label variable, for both the test and training datasets. Run both the files for the training and test dataset. 
 
-We have the dropna pre processing code for test and train files under one folder
+The Mode folder has files that perform mode imputation on both the training and test datasets and creates new csv files with the inputted data. 
 
-Ensemble Methods Files and code under one folder
+The Ensemble folder contains the code that performs the classification algorithms. 
 
-Mode Imputation Test and Train files and code under one folder
+
