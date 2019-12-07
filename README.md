@@ -7,6 +7,6 @@ The DropNa folder contains preproccessing code that converts all categorical var
 
 The Mode folder has files that perform mode imputation on both the training and test datasets and creates new csv files with the imputed data. 
 
-The Ensemble folder contains the code that performs the classification algorithms. 
+The Ensemble folder contains code that balances the datasets and performs the classification algorithms. 
 
 
