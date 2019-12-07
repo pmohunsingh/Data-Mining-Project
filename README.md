@@ -7,6 +7,6 @@ The DropNa folder contains preproccessing code that converts all categorical var
 
 The Mode folder has files that perform mode imputation on both the training and test datasets and creates new csv files with the imputed data. 
 
-The Ensemble folder contains code that balances the datasets and performs the classification algorithms. 
-
+The Ensemble folder contains the code that performs the classification algorithms. 
+Pearson_Mode_Ensemble is the Ensemble with the Pearson Coefficient. RK_KN_LR is the mode imputed ensemble. Training Ensemble is the Ensemble where the training file is used to test the algorithms for both test and train. 
 
