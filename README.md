@@ -1,4 +1,5 @@
 # Data Mining Project
+U.S. Census Income Classification
 
 ## Running the Files
 The files should be run on jupyter notebook. 
